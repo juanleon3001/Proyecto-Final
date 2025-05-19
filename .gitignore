@@ -1,0 +1,55 @@
+
+# Archivos comunes a Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+
+# Archivos temporales y de sistema
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# STS (Spring Tool Suite) / Eclipse
+.settings/
+.project
+.classpath
+.metadata/
+.apt_generated/
+.factorypath
+.springBeans
+
+# IntelliJ (por si algún colaborador usa esta IDE)
+.idea/
+*.iml
+out/
+
+# VS Code (por si acaso)
+.vscode/
+
+# Maven y Gradle
+target/
+build/
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Archivos de configuración personal
+*.env
+.env.local
+*.properties.local
+*.yml.local
+
+# Sistema de construcción (por seguridad)
+dependency-reduced-pom.xml
+
+# Archivos del sistema operativo
+ehthumbs.db
+Icon?
+desktop.ini
+
+# Carpeta específica que mencionaste
+.metadata/
