@@ -33,6 +33,6 @@ public class Pedido {
 	private  String telefono;
 	
 	@Column(name = "ESTADO")
-	private  String estado;
+	private  Long estado;
 
 }
