@@ -1,5 +1,8 @@
 package com.itsel.producto.models.repository;
 
-public interface ProductoRepository {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
 }
