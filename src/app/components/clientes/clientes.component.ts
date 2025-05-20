@@ -15,7 +15,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   clientes: Cliente[] = [];
   showForm: boolean = false;
-  textoModal: string = 'Nueva Aerolínea';
+  textoModal: string = 'Nueva Cliente';
   clienteForm: FormGroup;
   isEditMode: boolean = false;
   selectedCliente: Cliente | null = null;
@@ -52,7 +52,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   toggleForm(): void {
     this.showForm = true;
-    this.textoModal = 'Nueva Aerolínea';
+    this.textoModal = 'Nueva Cliente';
     this.isEditMode = false;
     this.clienteForm.reset();
     this.selectedCliente = null;
@@ -123,7 +123,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   deleteCliente(id: number): void {
     Swal.fire({
-      title: 'Eliminar Aerolínea',
+      title: 'Eliminar Cliente',
       text: '¿Estás seguro que deseas eliminar esta aerolínea?',
       icon: 'question',
       showCancelButton: true,
