@@ -25,7 +25,7 @@ public class Cliente {
 	private  String nombre;
 	
 	@Column(name = "APELLIDO")
-	private  String apeliido;
+	private  String apellido;
 	
 	@Column(name = "EMAIL")
 	private  String email;
@@ -63,12 +63,13 @@ public class Cliente {
 		this.nombre = nombre;
 	}
 
-	public String getApeliido() {
-		return apeliido;
+	
+	public String getApellido() {
+		return apellido;
 	}
 
-	public void setApeliido(String apeliido) {
-		this.apeliido = apeliido;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public String getEmail() {

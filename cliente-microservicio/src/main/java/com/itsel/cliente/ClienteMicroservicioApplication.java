@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 
-
-
-@SpringBootApplication(scanBasePackages = {"com.itsel.common.controllers", "com.itsel.cliente"})
+@SpringBootApplication(scanBasePackages = {"com.itsel.cliente", "com.itsel.common"})
 @EntityScan({"com.itsel.common.models.entities"})
 public class ClienteMicroservicioApplication {
 
