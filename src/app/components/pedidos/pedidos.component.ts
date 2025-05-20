@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-pedidos',
-  imports: [],
+  standalone: false,
   templateUrl: './pedidos.component.html',
   styleUrl: './pedidos.component.css'
 })
