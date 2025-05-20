@@ -1,12 +1,20 @@
 package com.itsel.producto.services;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.itsel.common.dto.ProductoDTO;
+import com.itsel.common.models.entities.Producto;
+import com.itsel.common.services.CommonEcommerceServiceImpl;
+import com.itsel.producto.mappers.ProductoMapper;
+import com.itsel.producto.models.repository.ProductoRepository;
 
 @Service
-public class ProductoServiceImpl CommonEcommerceServiceImpl<ProductoDTO, Producto, ProductoMapper, ProductoRepository> implements ProductoService{
+public class ProductoServiceImpl extends CommonEcommerceServiceImpl<ProductoDTO, Producto, ProductoMapper, ProductoRepository> implements ProductoService{
 	
 	@Override
 	@Transactional(readOnly = true)

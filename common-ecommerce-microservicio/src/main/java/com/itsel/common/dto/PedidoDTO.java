@@ -60,12 +60,12 @@ public class PedidoDTO {
 		return total;
 	}
 
-	public void setTotal(Long total) {
+	/*public void setTotal(Long total) {
 		if (productos == null) return 0L;
         return productos.stream()
                .mapToLong(p -> p.getPrecio() != null ? p.getPrecio() : 0L)
                .sum();
-    }
+    }*/
 
 
 	public LocalDate getFechaCreacion() {

@@ -1,10 +1,14 @@
 package com.itsel.common.models.entities;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -29,6 +33,10 @@ public class Producto {
 	
 	@Column(name = "STOCK")
 	private  Long stock;
+	
+	@ManyToMany
+	(cascade = CascadeType.MERGE)
+	private  List<Pedido> pedidos;
 
 	public Long getId() {
 		return id;
@@ -69,6 +77,15 @@ public class Producto {
 	public void setStock(Long stock) {
 		this.stock = stock;
 	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
 	
 	
 

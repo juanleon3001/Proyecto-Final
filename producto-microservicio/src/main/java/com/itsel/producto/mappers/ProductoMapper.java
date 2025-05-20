@@ -2,6 +2,11 @@ package com.itsel.producto.mappers;
 
 import org.springframework.stereotype.Component;
 
+import com.itsel.common.dto.ProductoDTO;
+import com.itsel.common.mappers.CommonEcommerceMapper;
+import com.itsel.common.models.entities.Producto;
+import com.itsel.producto.models.repository.ProductoRepository;
+
 @Component
 public class ProductoMapper extends CommonEcommerceMapper<ProductoDTO, Producto, ProductoRepository> {
 

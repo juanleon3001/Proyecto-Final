@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
@@ -27,11 +28,15 @@ public class Pedido {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "CLIENTE", referencedColumnName = "ID_CLIENTE")
-	private  Cliente cliente;
+	@JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE")
+	private Cliente cliente;
 	
-	@ManyToMany
-	(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE)
+	@JoinTable(
+			name = "PEDIDO_PRODUCTO",
+			joinColumns = @JoinColumn(name = "ID_PRODUCTO"),
+			inverseJoinColumns = @JoinColumn(name = "ID_PEDIDO")
+			)
 	private  List<Producto> productos;
 
 	@Column(name = "TOTAL")
@@ -62,18 +67,19 @@ public class Pedido {
 		this.id = id;
 	}
 
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
 	public List<Producto> getProductos() {
 		return productos;
 	}
 
-	public Long getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Long cliente) {
-		this.cliente = cliente;
-	}
-
+	
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
 	}
