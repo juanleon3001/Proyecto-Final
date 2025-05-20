@@ -1,4 +1,4 @@
-export interface ProductoPost{
+export interface Producto{
     id_producto: number | null,
     nombre: string,
     descripcion: string,

@@ -29,10 +29,8 @@ export class PedidosComponent implements OnInit, AfterViewInit {
     this.pedidoForm = formBuilder.group({
       id_pedido: [null],
       id_cliente: ['', [Validators.required, Validators.maxLength(50)]],
-      idAvion: ['', Validators.required],
-      idOrigen: ['', Validators.required],
-      idDestino: ['', Validators.required],
-      fechaSalida: ['', Validators.required],
+      total: ['', Validators.required],
+      fechaCreacion: ['', Validators.required],
       estatus: ['', Validators.required]
     });
   }
