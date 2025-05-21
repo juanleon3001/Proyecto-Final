@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {  provideHttpClient } from '@angular/common/http'; 
-import { ReactiveFormsModule } from '@angular/forms';
+import { provideHttpClient } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // ✅ FormsModule agregado
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -23,7 +23,8 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule // ✅ Importado aquí
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]

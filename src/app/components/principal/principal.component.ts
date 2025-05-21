@@ -11,6 +11,9 @@ import { PedidoGet } from '../../models/pedidoGet.models';
 export class PrincipalComponent implements OnInit {
   pedidos: PedidoGet[] = [];
 
+  filtroId: string = '';
+  filtroProducto: string = '';
+
   constructor(private pedidoService: PedidoService) {}
 
   ngOnInit(): void {
@@ -21,6 +24,16 @@ export class PrincipalComponent implements OnInit {
     this.pedidoService.getPedido().subscribe({
       next: data => this.pedidos = data,
       error: err => console.error('Error al obtener pedidos', err)
+    });
+  }
+
+  pedidosFiltrados(): PedidoGet[] {
+    return this.pedidos.filter(p => {
+      const coincideId = this.filtroId === '' || p.id_pedido?.toString().includes(this.filtroId);
+      const coincideProducto = this.filtroProducto === '' || p.productos?.some(prod =>
+        prod.nombre?.toLowerCase().includes(this.filtroProducto.toLowerCase())
+      );
+      return coincideId && coincideProducto;
     });
   }
 }
