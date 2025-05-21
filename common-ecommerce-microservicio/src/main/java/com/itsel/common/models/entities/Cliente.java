@@ -11,7 +11,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
-@Table(name = "CLIENTE")
+@Table(name = "CLIENTES")
 @Entity
 public class Cliente {
 	

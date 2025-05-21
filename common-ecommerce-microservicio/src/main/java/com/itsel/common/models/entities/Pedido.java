@@ -18,10 +18,10 @@ public class Pedido {
     @JoinColumn(name = "ID_CLIENTE", nullable = false)
     private Cliente cliente;
     
-    @Column(name = "TOTAL")
+    @Column(name = "TOTAL", nullable = false)
     private Double total;
     
-    @Column(name = "FECHA_CREACION")
+    @Column(name = "FECHA_CREACION", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
     
@@ -29,9 +29,9 @@ public class Pedido {
     @JoinColumn(name = "ID_ESTADO", nullable = false)
     private Estado estado;
     
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany
     @JoinTable(
-        name = "PEDIDO_PRODUCTO",
+        name = "PRODUCTOS_PEDIDOS",
         joinColumns = @JoinColumn(name = "ID_PEDIDO"),
         inverseJoinColumns = @JoinColumn(name = "ID_PRODUCTO")
     )
