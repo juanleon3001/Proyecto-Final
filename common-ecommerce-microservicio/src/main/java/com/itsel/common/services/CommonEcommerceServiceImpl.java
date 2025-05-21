@@ -10,7 +10,8 @@ import com.itsel.common.mappers.CommonEcommerceMapper;
 
 public class CommonEcommerceServiceImpl<D, E,
 M extends CommonEcommerceMapper<D, E,R>,
-R extends JpaRepository<E, Long>> implements CommonEcommerceService<D> {
+R extends JpaRepository<E, Long>> implements CommonEcommerceService<D>
+{
 	
 	@Autowired
 	protected R repository;

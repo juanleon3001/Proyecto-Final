@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.itsel</groupId>
-	<artifactId>aero-api-gateway</artifactId>
+	<artifactId>ecommerce-api-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>aero-api-gateway</name>
+	<name>ecommerce-api-gateway</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

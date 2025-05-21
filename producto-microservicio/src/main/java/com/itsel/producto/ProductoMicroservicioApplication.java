@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 //@EnableFeignClient
-@SpringBootApplication(scanBasePackages = {"com.itsel.common.controllers", "com.itsel.producto"})
+@SpringBootApplication(scanBasePackages = {"com.itsel.producto", "com.itsel.common.controllers"})
 @EntityScan({"com.itsel.common.models.entities"})
 public class ProductoMicroservicioApplication {
 
