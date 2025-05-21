@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itsel.common.dto.PedidoDTO;
+import com.itsel.common.dto.PedidoDTOGet;
 import com.itsel.common.models.entities.Cliente;
 import com.itsel.common.models.entities.Estado;
 import com.itsel.common.models.entities.Pedido;
@@ -102,5 +103,17 @@ public class PedidoServiceImpl extends CommonEcommerceServiceImpl<PedidoDTO, Ped
                 .collect(Collectors.toList());
             pedido.setProductos(productos);
         }
+        
+    }
+    
+ // Agregar este método en la clase
+    @Override
+    @Transactional(readOnly = true)
+    public List<PedidoDTOGet> listarPorCliente(Long idCliente) {
+        List<PedidoDTOGet> dtos = new ArrayList<>();
+        repository.findByClienteId(idCliente).forEach(pedido -> {
+            dtos.add(mapper.entityToDTOGet(pedido));
+        });
+        return dtos;
     }
 }
