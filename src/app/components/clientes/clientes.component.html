@@ -40,16 +40,16 @@
   </table>
 
   <!-- Modal Cliente -->
-  <div class="modal fade" id="vueloModal" tabindex="-1" aria-labelledby="vueloModalLabel" aria-hidden="true" #vueloModal>
+  <div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true" #clienteModal>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="vueloModalLabel">{{ textoModal }}</h5>
+          <h5 class="modal-title" id="clienteModalLabel">{{ textoModal }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
-          <div class="modal-body" *ngIf="showForm">
+        <div class="modal-body">
           <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
-            <input type="hidden" readonly formControlName="id" />
+            <input type="hidden" readonly formControlName="id_cliente" />
             <div class="form-group">
               <label for="nombre">Nombre</label>
               <input id="nombre" class="form-control" formControlName="nombre" />
@@ -64,7 +64,7 @@
               <input id="telefono" class="form-control" formControlName="telefono" />
 
               <label for="direccion">Direccion</label>
-              <input id="direccion" type="date" class="form-control" formControlName="direccion" />
+              <input id="direccion" type="text" class="form-control" formControlName="direccion" />
             </div>
             <button type="submit" class="btn btn-success mt-3" [disabled]="clienteForm.invalid">
               Guardar

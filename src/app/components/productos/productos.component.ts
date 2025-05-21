@@ -14,8 +14,7 @@ import { Modal } from 'bootstrap';
 export class ProductosComponent implements OnInit, AfterViewInit {
 
   productos: Producto[] = [];
-  showForm: boolean = false;
-  textoModal: string = 'Nueva Aerolínea';
+  textoModal: string = 'Nuevo Producto';
   productoForm: FormGroup;
   isEditMode: boolean = false;
   selectedProducto: Producto | null = null;
@@ -50,25 +49,18 @@ export class ProductosComponent implements OnInit, AfterViewInit {
   }
 
   toggleForm(): void {
-    this.showForm = true;
-    this.textoModal = 'Nueva Aerolínea';
+    this.textoModal = 'Nuevo Producto';
     this.isEditMode = false;
     this.productoForm.reset();
     this.selectedProducto = null;
+    this.modalInstance.show();
   }
 
-  
   closeModal(): void {
-  if (this.modalInstance) {
-    this.modalInstance.hide();
-    const backdrop = document.querySelector('.modal-backdrop');
-    if (backdrop) {
-      backdrop.remove();
-      document.body.classList.remove('modal-open');
-      document.body.style.removeProperty('padding-right');
+    if (this.modalInstance) {
+      this.modalInstance.hide();
     }
   }
-}
 
   onSubmit(): void {
     if (this.productoForm.invalid) {
@@ -84,12 +76,11 @@ export class ProductosComponent implements OnInit, AfterViewInit {
           if (index !== -1) this.productos[index] = updateProducto;
 
           Swal.fire({
-            title: `Producto ${updateProducto.nombre} actualizada`,
-            text: 'La aerolínea fue actualizada correctamente.',
+            title: `Producto ${updateProducto.nombre} actualizado`,
+            text: 'El producto fue actualizado correctamente.',
             icon: 'success'
           });
           this.productoForm.reset();
-          this.showForm = false;
           this.closeModal();
         }
       });
@@ -99,13 +90,12 @@ export class ProductosComponent implements OnInit, AfterViewInit {
           this.productos.push(created);
 
           Swal.fire({
-            title: 'Producto ' +created.nombre + ' creada',
-            text: 'La aerolínea fue creada exitosamente.',
+            title: 'Producto ' + created.nombre + ' creado',
+            text: 'El producto fue creado exitosamente.',
             icon: 'success'
           });
 
           this.productoForm.reset();
-          this.showForm = false;
           this.closeModal();
         }
       });
@@ -114,16 +104,16 @@ export class ProductosComponent implements OnInit, AfterViewInit {
 
   editProducto(producto: Producto): void {
     this.selectedProducto = producto;
-    this.textoModal = `Editando aerolínea: ${producto.nombre}`;
+    this.textoModal = `Editando producto: ${producto.nombre}`;
     this.isEditMode = true;
-    this.showForm = true;
     this.productoForm.patchValue({ ...producto });
+    this.modalInstance.show();
   }
 
   deleteProducto(id: number): void {
     Swal.fire({
-      title: 'Eliminar Aerolínea',
-      text: '¿Estás seguro que deseas eliminar esta aerolínea?',
+      title: 'Eliminar Producto',
+      text: '¿Estás seguro que deseas eliminar este producto?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Sí, eliminar'
@@ -134,8 +124,8 @@ export class ProductosComponent implements OnInit, AfterViewInit {
             this.productos = this.productos.filter(t => t.id_producto !== id);
 
             Swal.fire({
-              title: `Producto ${deleted.nombre} eliminada`,
-              text: 'La aerolínea fue eliminada correctamente.',
+              title: `Producto ${deleted.nombre} eliminado`,
+              text: 'El producto fue eliminado correctamente.',
               icon: 'success'
             });
           }

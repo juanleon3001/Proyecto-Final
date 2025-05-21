@@ -38,14 +38,14 @@
   </table>
 
   <!-- Modal Producto -->
-  <div class="modal fade" id="vueloModal" tabindex="-1" aria-labelledby="vueloModalLabel" aria-hidden="true" #vueloModal>
+<div class="modal fade" id="productoModal" tabindex="-1" aria-labelledby="productoModalLabel" aria-hidden="true" #productoModal>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="vueloModalLabel">{{ textoModal }}</h5>
+          <h5 class="modal-title" id="productoModalLabel">{{ textoModal }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
-          <div class="modal-body" *ngIf="showForm">
+          <div class="modal-body">
           <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
             <input type="hidden" readonly formControlName="id" />
             <div class="form-group">

@@ -6,13 +6,12 @@ import { PedidoGet } from "../models/pedidoGet.models";
 import { PedidoPost } from "../models/pedidoPost.model";
 
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class PedidoService {
-  private postUrl = environment.apiUrl + 'pedido/';      // POST, PUT, DELETE
-  private getUrl = environment.apiUrl + 'pedido/get';   // GET (all and by ID)
+  private postUrl = environment.apiUrl + 'pedido/';      
+  private getUrl = environment.apiUrl + 'pedido/get';   
 
   constructor(private http: HttpClient) {}
 

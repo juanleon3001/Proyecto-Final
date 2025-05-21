@@ -14,8 +14,7 @@ import { Modal } from 'bootstrap';
 export class ClientesComponent implements OnInit, AfterViewInit {
 
   clientes: Cliente[] = [];
-  showForm: boolean = false;
-  textoModal: string = 'Nueva Cliente';
+  textoModal: string = 'Nuevo Cliente';
   clienteForm: FormGroup;
   isEditMode: boolean = false;
   selectedCliente: Cliente | null = null;
@@ -51,30 +50,27 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   }
 
   toggleForm(): void {
-    this.showForm = true;
-    this.textoModal = 'Nueva Cliente';
+    this.textoModal = 'Nuevo Cliente';
     this.isEditMode = false;
     this.clienteForm.reset();
     this.selectedCliente = null;
+    this.modalInstance.show();
   }
 
-  
   closeModal(): void {
-  if (this.modalInstance) {
-    this.modalInstance.hide();
-    const backdrop = document.querySelector('.modal-backdrop');
-    if (backdrop) {
-      backdrop.remove();
-      document.body.classList.remove('modal-open');
-      document.body.style.removeProperty('padding-right');
+    if (this.modalInstance) {
+      this.modalInstance.hide();
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) {
+        backdrop.remove();
+        document.body.classList.remove('modal-open');
+        document.body.style.removeProperty('padding-right');
+      }
     }
   }
-}
 
   onSubmit(): void {
-    if (this.clienteForm.invalid) {
-      return;
-    }
+    if (this.clienteForm.invalid) return;
 
     const clienteData: Cliente = this.clienteForm.value;
 
@@ -86,11 +82,11 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
           Swal.fire({
             title: `Cliente ${updateCliente.nombre} actualizada`,
-            text: 'La aerolínea fue actualizada correctamente.',
+            text: 'El cliente fue actualizado correctamente.',
             icon: 'success'
           });
+
           this.clienteForm.reset();
-          this.showForm = false;
           this.closeModal();
         }
       });
@@ -100,13 +96,12 @@ export class ClientesComponent implements OnInit, AfterViewInit {
           this.clientes.push(created);
 
           Swal.fire({
-            title: 'Cliente ' +created.nombre + ' creada',
-            text: 'La aerolínea fue creada exitosamente.',
+            title: 'Cliente ' + created.nombre + ' creada',
+            text: 'El cliente fue creado exitosamente.',
             icon: 'success'
           });
 
           this.clienteForm.reset();
-          this.showForm = false;
           this.closeModal();
         }
       });
@@ -115,16 +110,16 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   editCliente(cliente: Cliente): void {
     this.selectedCliente = cliente;
-    this.textoModal = `Editando aerolínea: ${cliente.nombre}`;
+    this.textoModal = `Editando cliente: ${cliente.nombre}`;
     this.isEditMode = true;
-    this.showForm = true;
     this.clienteForm.patchValue({ ...cliente });
+    this.modalInstance.show();
   }
 
   deleteCliente(id: number): void {
     Swal.fire({
       title: 'Eliminar Cliente',
-      text: '¿Estás seguro que deseas eliminar esta aerolínea?',
+      text: '¿Estás seguro que deseas eliminar este cliente?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Sí, eliminar'
@@ -136,7 +131,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
             Swal.fire({
               title: `Cliente ${deleted.nombre} eliminada`,
-              text: 'La aerolínea fue eliminada correctamente.',
+              text: 'El cliente fue eliminado correctamente.',
               icon: 'success'
             });
           }
