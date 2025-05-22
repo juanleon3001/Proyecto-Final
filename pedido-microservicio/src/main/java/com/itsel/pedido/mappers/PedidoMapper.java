@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import com.itsel.common.dto.PedidoDTO;
-import com.itsel.common.dto.PedidoDTOGet;
 import com.itsel.common.dto.ProductoDTOGet;
 import com.itsel.common.mappers.CommonEcommerceMapper;
 import com.itsel.common.models.entities.Pedido;
@@ -27,29 +26,23 @@ public class PedidoMapper extends CommonEcommerceMapper<PedidoDTO, Pedido, Pedid
         dto.setFechaCreacion(entity.getFechaCreacion());
         dto.setIdEstado(entity.getEstado().getId());
         
+        // Campos extendidos
+        if (entity.getCliente() != null) {
+            dto.setClienteNombre(entity.getCliente().getNombre());
+            dto.setClienteApellido(entity.getCliente().getApellido());
+        }
+        
+        if (entity.getEstado() != null) {
+            dto.setEstadoNombre(entity.getEstado().getNombre());
+        }
+        
         if (entity.getProductos() != null) {
             List<Long> idProductos = entity.getProductos().stream()
                 .map(Producto::getId)
                 .collect(Collectors.toList());
             dto.setIdProductos(idProductos);
-        }
-        
-        return dto;
-    }
-
-    public PedidoDTOGet entityToDTOGet(Pedido entity) {
-        if (entity == null) return null;
-        
-        PedidoDTOGet dto = new PedidoDTOGet();
-        dto.setId(entity.getId());
-        dto.setClienteNombre(entity.getCliente().getNombre());
-        dto.setClienteApellido(entity.getCliente().getApellido());
-        dto.setTotal(entity.getTotal());
-        dto.setFechaCreacion(entity.getFechaCreacion());
-        dto.setEstado(entity.getEstado().getNombre());
-        
-        if (entity.getProductos() != null) {
-            List<ProductoDTOGet> productos = entity.getProductos().stream()
+            
+            List<ProductoDTOGet> productosDetalle = entity.getProductos().stream()
                 .map(producto -> {
                     ProductoDTOGet productoDTO = new ProductoDTOGet();
                     productoDTO.setId(producto.getId());
@@ -60,7 +53,7 @@ public class PedidoMapper extends CommonEcommerceMapper<PedidoDTO, Pedido, Pedid
                     return productoDTO;
                 })
                 .collect(Collectors.toList());
-            dto.setProductos(productos);
+            dto.setProductosDetalle(productosDetalle);
         }
         
         return dto;

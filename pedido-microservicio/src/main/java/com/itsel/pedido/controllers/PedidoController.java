@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import com.itsel.pedido.services.PedidoService;
 import com.itsel.common.controllers.CommonEcommerceController;
 import com.itsel.common.dto.PedidoDTO;
-import com.itsel.common.dto.PedidoDTOGet;
 import java.util.List;
 
 @RestController
@@ -18,8 +17,8 @@ public class PedidoController extends CommonEcommerceController<PedidoDTO, Pedid
     }
 
     @GetMapping("/cliente/{idCliente}")
-    public ResponseEntity<List<PedidoDTOGet>> obtenerPorCliente(@PathVariable Long idCliente) {
-        List<PedidoDTOGet> pedidos = service.listarPorCliente(idCliente);
+    public ResponseEntity<List<PedidoDTO>> obtenerPorCliente(@PathVariable Long idCliente) {
+        List<PedidoDTO> pedidos = service.listarPorCliente(idCliente);
         return ResponseEntity.ok(pedidos);
     }
 }

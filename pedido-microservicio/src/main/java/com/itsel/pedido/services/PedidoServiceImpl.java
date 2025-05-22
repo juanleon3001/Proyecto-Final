@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itsel.common.dto.PedidoDTO;
-import com.itsel.common.dto.PedidoDTOGet;
 import com.itsel.common.models.entities.Cliente;
 import com.itsel.common.models.entities.Estado;
 import com.itsel.common.models.entities.Pedido;
@@ -35,10 +34,7 @@ public class PedidoServiceImpl extends CommonEcommerceServiceImpl<PedidoDTO, Ped
     @Transactional(readOnly = true)
     public Optional<PedidoDTO> obtenerPorId(Long id) {
         Optional<Pedido> pedido = repository.findById(id);
-        if (pedido.isPresent()) {
-            return Optional.of(mapper.entityToDTO(pedido.get()));
-        }
-        return Optional.empty();
+        return pedido.map(mapper::entityToDTO);
     }
     
     @Override
@@ -49,7 +45,6 @@ public class PedidoServiceImpl extends CommonEcommerceServiceImpl<PedidoDTO, Ped
             Pedido pedido = mapper.dtoToEntity(dto);
             pedido.setId(id);
             
-            // Actualizar relaciones
             actualizarRelaciones(pedido, dto);
             
             repository.save(pedido);
@@ -63,7 +58,6 @@ public class PedidoServiceImpl extends CommonEcommerceServiceImpl<PedidoDTO, Ped
     public PedidoDTO insertar(PedidoDTO dto) {
         Pedido pedido = mapper.dtoToEntity(dto);
         
-        // Establecer relaciones
         actualizarRelaciones(pedido, dto);
         
         repository.save(pedido);
@@ -79,6 +73,16 @@ public class PedidoServiceImpl extends CommonEcommerceServiceImpl<PedidoDTO, Ped
             return mapper.entityToDTO(pedido.get());
         }
         return null;
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public List<PedidoDTO> listarPorCliente(Long idCliente) {
+        List<PedidoDTO> dtos = new ArrayList<>();
+        repository.findByClienteId(idCliente).forEach(pedido -> {
+            dtos.add(mapper.entityToDTO(pedido));
+        });
+        return dtos;
     }
     
     private void actualizarRelaciones(Pedido pedido, PedidoDTO dto) {
@@ -103,17 +107,5 @@ public class PedidoServiceImpl extends CommonEcommerceServiceImpl<PedidoDTO, Ped
                 .collect(Collectors.toList());
             pedido.setProductos(productos);
         }
-        
-    }
-    
- // Agregar este método en la clase
-    @Override
-    @Transactional(readOnly = true)
-    public List<PedidoDTOGet> listarPorCliente(Long idCliente) {
-        List<PedidoDTOGet> dtos = new ArrayList<>();
-        repository.findByClienteId(idCliente).forEach(pedido -> {
-            dtos.add(mapper.entityToDTOGet(pedido));
-        });
-        return dtos;
     }
 }

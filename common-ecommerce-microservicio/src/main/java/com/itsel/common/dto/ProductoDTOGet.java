@@ -5,8 +5,8 @@ public class ProductoDTOGet {
     private Long id;
     private String nombre;
     private String descripcion;
-    private Double precio;  // Cambiado de Long a Double
-    private Integer stock;  // Cambiado de Long a Integer
+    private Double precio;  
+    private Integer stock;  
     
     // Getters y Setters
     public Long getId() {

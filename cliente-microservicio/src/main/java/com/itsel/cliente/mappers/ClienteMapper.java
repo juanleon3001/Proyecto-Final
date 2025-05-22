@@ -17,7 +17,7 @@ public class ClienteMapper extends CommonEcommerceMapper<ClienteDTO, Cliente, Cl
             ClienteDTO dto = new ClienteDTO();
             dto.setId(entity.getId());
             dto.setNombre(entity.getNombre());
-            dto.setApeliido(entity.getApellido());
+            dto.setApellido(entity.getApellido());
             dto.setEmail(entity.getEmail());
             dto.setTelefono(entity.getTelefono());
             dto.setDireccion(entity.getDireccion());
@@ -31,7 +31,7 @@ public class ClienteMapper extends CommonEcommerceMapper<ClienteDTO, Cliente, Cl
         if (dto != null) {
             Cliente entity = new Cliente();
             entity.setNombre(dto.getNombre());
-            entity.setApellido(dto.getApeliido());
+            entity.setApellido(dto.getApellido());
             entity.setEmail(dto.getEmail());
             entity.setTelefono(dto.getTelefono());
             entity.setDireccion(dto.getDireccion());

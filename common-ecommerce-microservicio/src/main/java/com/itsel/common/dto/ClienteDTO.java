@@ -16,7 +16,7 @@ private Long id;
 	
 	@NotNull(message = "El apellido no puede ser nulo")
 	@NotBlank(message = "El apellido no puede estar en blanco")
-	private  String apeliido;
+	private  String apellido;
 	
 	@NotNull(message = "El email no puede ser nulo")
     @NotBlank(message = "El email no puede estar en blanco")
@@ -53,13 +53,13 @@ private Long id;
 	}
 
 
-	public String getApeliido() {
-		return apeliido;
+	public String getApellido() {
+		return apellido;
 	}
 
 
-	public void setApeliido(String apeliido) {
-		this.apeliido = apeliido;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 
