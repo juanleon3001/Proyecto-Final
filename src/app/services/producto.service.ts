@@ -24,7 +24,7 @@ putProducto(producto: Producto): Observable<Producto>{
   return this.http.put<Producto>(this.apiUrl + producto.id, producto);
 }
 
-deleteProducto(idProducto: number): Observable<Producto>{
-  return this.http.delete<Producto>(`${this.apiUrl}${idProducto}`);
+deleteProducto(idProductos: number): Observable<Producto>{
+  return this.http.delete<Producto>(`${this.apiUrl}${idProductos}`);
 }
 }

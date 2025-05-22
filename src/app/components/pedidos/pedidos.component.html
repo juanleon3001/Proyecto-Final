@@ -14,6 +14,7 @@
         <th>Total</th>
         <th>Fecha de Creacion</th>
         <th>Estatus</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -23,7 +24,7 @@
         <td>{{ pedido.clienteNombre }}</td>
         <td>{{ pedido.total }}</td>
         <td>{{ pedido.fechaCreacion }}</td>
-        <td>{{ pedido.estado }}</td>
+        <td>{{ pedido.idEstado }}</td>
         <td>
           <button class="btn btn-primary btn-sm me-1" (click)="editPedido(pedido)">
             <i class="fa fa-edit"></i> Editar

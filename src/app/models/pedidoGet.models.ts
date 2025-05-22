@@ -4,8 +4,8 @@ export interface PedidoGet {
   clienteApellido: string;
   total: number;
   fechaCreacion: Date;
-  estado: string;
-  productos: Producto[];
+  idEstado: string;
+  idProductos: number[];
 }
 
 export interface Producto {

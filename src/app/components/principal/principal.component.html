@@ -33,10 +33,16 @@
         <td>{{ pedido.clienteNombre }}</td>
         <td>{{ pedido.total }}</td>
         <td>{{ pedido.fechaCreacion }}</td>
-        <td>{{ pedido.estado }}</td>
+        <td>
+          <span [ngClass]="getEstatusPedido(pedido.idEstado).clase">
+            {{ getEstatusPedido(pedido.idEstado).texto }}
+          </span>
+        </td>
         <td>
           <ul class="list-unstyled">
-            <li *ngFor="let prod of pedido.productos">{{ prod.nombre }}</li>
+            <li *ngFor="let prodId of pedido.idProductos">
+              {{ obtenerNombreProducto(prodId) }}
+            </li>
           </ul>
         </td>
       </tr>

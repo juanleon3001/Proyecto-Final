@@ -44,7 +44,7 @@ export class PedidosComponent implements OnInit, AfterViewInit {
   }
 
   listarPedidos(): void {
-    this.pedidoService.getPedido().subscribe({
+    this.pedidoService.getPedidos().subscribe({
       next: resp => {
         this.pedidos = resp;
       }
@@ -124,5 +124,24 @@ export class PedidosComponent implements OnInit, AfterViewInit {
         });
       }
     });
+  }
+
+getEstatusPedido(estatus: string | number): { texto: string, clase: string } {
+    switch (estatus) {
+      case 1:
+      case '1':
+        return { texto: 'Pendiente', clase: 'badge bg-primary' };
+      case 2:
+      case '2':
+        return { texto: 'Enviado', clase: 'badge bg-warning text-dark' };
+      case 3:
+      case '3':
+        return { texto: 'Entregado', clase: 'badge bg-success' };
+      case 4:
+      case '4':
+        return { texto: 'Cancelado', clase: '' };
+      default:
+        return { texto: 'N/A', clase: '' };
+    }
   }
 }
