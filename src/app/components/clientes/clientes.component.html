@@ -23,7 +23,7 @@
       <tr *ngFor="let cliente of clientes; let i = index" style="text-align: center;">
         <td>{{ i + 1 }}</td>
         <td>{{ cliente.nombre }}</td>
-        <td>{{ cliente.apeliido }}</td>
+        <td>{{ cliente.apellido }}</td>
         <td>{{ cliente.email }}</td>
         <td>{{ cliente.telefono }}</td>
         <td>{{ cliente.direccion }}</td>
@@ -54,8 +54,8 @@
               <label for="nombre">Nombre</label>
               <input id="nombre" class="form-control" formControlName="nombre" />
 
-              <label for="apeliido">Apellido</label>
-              <input id="apeliido" class="form-control" formControlName="apeliido" />
+              <label for="apellido">Apellido</label>
+              <input id="apellido" class="form-control" formControlName="apellido" />
 
               <label for="email">Email</label>
               <input id="email" class="form-control" formControlName="email" />
