@@ -34,6 +34,9 @@
           <button class="btn btn-danger btn-sm me-1" (click)="cliente.id ? deleteCliente(cliente.id) : null">
             <i class="fa fa-trash"></i> Eliminar
           </button>
+          <button class="btn btn-success btn-sm" (click)="abrirPedidoModal(cliente)">
+            <i class="fa fa-plus"></i> Agregar Pedido
+          </button>
         </td>
       </tr>
     </tbody>
@@ -43,36 +46,121 @@
   <div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true" #clienteModal>
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="clienteModalLabel">{{ textoModal }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+          <div class="modal-header">
+            <h5 class="modal-title" id="clienteModalLabel">{{ textoModal }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
             <input type="hidden" readonly formControlName="id" />
-            <div class="form-group">
+
+            <div class="mb-3">
               <label for="nombre">Nombre</label>
-              <input id="nombre" class="form-control" formControlName="nombre" />
-
-              <label for="apellido">Apellido</label>
-              <input id="apellido" class="form-control" formControlName="apellido" />
-
-              <label for="email">Email</label>
-              <input id="email" class="form-control" formControlName="email" />
-
-              <label for="telefono">Telefono</label>
-              <input id="telefono" class="form-control" formControlName="telefono" />
-
-              <label for="direccion">Direccion</label>
-              <input id="direccion" type="text" class="form-control" formControlName="direccion" />
+              <input id="nombre" class="form-control" formControlName="nombre"
+                [ngClass]="{ 'is-invalid': clienteForm.get('nombre')?.invalid && clienteForm.get('nombre')?.touched }" />
+              <div class="invalid-feedback" *ngIf="clienteForm.get('nombre')?.errors?.['required']">
+                El nombre es obligatorio.
+              </div>
+              <div class="invalid-feedback" *ngIf="clienteForm.get('nombre')?.errors?.['maxlength']">
+                Máximo 50 caracteres.
+              </div>
             </div>
-            <button type="submit" class="btn btn-success mt-3" [disabled]="clienteForm.invalid">
-              Guardar
+
+            <div class="mb-3">
+              <label for="apellido">Apellido</label>
+              <input id="apellido" class="form-control" formControlName="apellido"
+                [ngClass]="{ 'is-invalid': clienteForm.get('apellido')?.invalid && clienteForm.get('apellido')?.touched }" />
+              <div class="invalid-feedback" *ngIf="clienteForm.get('apellido')?.errors?.['required']">
+                El apellido es obligatorio.
+              </div>
+              <div class="invalid-feedback" *ngIf="clienteForm.get('apellido')?.errors?.['maxlength']">
+                Máximo 50 caracteres.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email">Email</label>
+              <input id="email" class="form-control" formControlName="email"
+                [ngClass]="{ 'is-invalid': clienteForm.get('email')?.invalid && clienteForm.get('email')?.touched }" />
+              <div class="invalid-feedback" *ngIf="clienteForm.get('email')?.errors?.['required']">
+                El email es obligatorio.
+              </div>
+              <div class="invalid-feedback" *ngIf="clienteForm.get('email')?.errors?.['email']">
+                El email no es válido.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="telefono">Teléfono</label>
+              <input id="telefono" class="form-control" formControlName="telefono"
+                [ngClass]="{ 'is-invalid': clienteForm.get('telefono')?.invalid && clienteForm.get('telefono')?.touched }" />
+              <div class="invalid-feedback" *ngIf="clienteForm.get('telefono')?.errors?.['required']">
+                El teléfono es obligatorio.
+              </div>
+              <div class="invalid-feedback" *ngIf="clienteForm.get('telefono')?.errors?.['pattern']">
+                Deben ser exactamente 10 dígitos numéricos.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="direccion">Dirección</label>
+              <input id="direccion" class="form-control" formControlName="direccion"
+                [ngClass]="{ 'is-invalid': clienteForm.get('direccion')?.invalid && clienteForm.get('direccion')?.touched }" />
+              <div class="invalid-feedback" *ngIf="clienteForm.get('direccion')?.errors?.['maxlength']">
+                Máximo 100 caracteres.
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-success" [disabled]="clienteForm.invalid">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Pedido -->
+  <div class="modal fade" id="pedidoModal" tabindex="-1" aria-labelledby="pedidoModalLabel" aria-hidden="true" #pedidoModal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="pedidoModalLabel">Agregar Pedido a {{ selectedCliente?.nombre }} {{ selectedCliente?.apellido }}</h5>
+          <button type="button" class="btn-close" (click)="closePedidoModal()" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body" *ngIf="showPedidoForm">
+          <form [formGroup]="pedidoForm" (ngSubmit)="onPedidoSubmit()">
+            <div class="form-group mb-2">
+              <label>Productos</label>
+              <select class="form-control" formControlName="idProductos" multiple>
+                <option *ngFor="let producto of productos" [ngValue]="producto.id">
+                  {{ producto.nombre }} - ${{ producto.precio }}
+                </option>
+              </select>
+              <small class="text-muted">Puede seleccionar varios productos (Ctrl+Click)</small>
+            </div>
+            <div class="form-group mb-2">
+              <label>Fecha de Creación</label>
+              <input type="date" class="form-control" formControlName="fechaCreacion" [max]="(today | date:'yyyy-MM-dd')" />
+              <div *ngIf="pedidoForm.get('fechaCreacion')?.errors?.['fechaInvalida'] && pedidoForm.get('fechaCreacion')?.touched" class="text-danger">
+                La fecha debe ser anterior a hoy.
+              </div>
+            </div>
+            <div class="form-group mb-2">
+              <label>Estatus</label>
+              <select class="form-control" formControlName="idEstado">
+                <option [ngValue]="null" disabled>Seleccione estatus...</option>
+                <option [ngValue]="1">Pendiente</option>
+                <option [ngValue]="2">Enviado</option>
+                <option [ngValue]="3">Entregado</option>
+                <option [ngValue]="4">Cancelado</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success mt-2" [disabled]="pedidoForm.invalid">
+              Guardar Pedido
             </button>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>

@@ -27,8 +27,8 @@ export class ProductosComponent implements OnInit, AfterViewInit {
       id: [null],
       nombre: ['', [Validators.required, Validators.maxLength(50)]],
       descripcion: ['', Validators.required],
-      precio: ['', Validators.required],
-      stock: ['', Validators.required],
+      precio: [null, [Validators.required, Validators.min(0)]],
+      stock: [null, [Validators.required, Validators.min(0)]],
     });
   }
 
@@ -64,10 +64,44 @@ export class ProductosComponent implements OnInit, AfterViewInit {
 
   onSubmit(): void {
     if (this.productoForm.invalid) {
+      // Validación extra: mostrar errores si el formulario es inválido
+      Object.values(this.productoForm.controls).forEach(control => {
+        control.markAsTouched();
+      });
       return;
     }
 
     const productoData: Producto = this.productoForm.value;
+
+    // Validación extra: nombre y descripción no vacíos y sin solo espacios
+    if (
+      !productoData.nombre ||
+      !productoData.descripcion ||
+      productoData.nombre.trim().length === 0 ||
+      productoData.descripcion.trim().length === 0
+    ) {
+      Swal.fire({
+        title: 'Campos inválidos',
+        text: 'El nombre y la descripción no pueden estar vacíos o solo contener espacios.',
+        icon: 'error'
+      });
+      return;
+    }
+
+    // Validación extra: precio y stock no negativos y son números
+    if (
+      isNaN(productoData.precio) ||
+      isNaN(productoData.stock) ||
+      productoData.precio < 0 ||
+      productoData.stock < 0
+    ) {
+      Swal.fire({
+        title: 'Valores inválidos',
+        text: 'El precio y el stock deben ser números mayores o iguales a 0.',
+        icon: 'error'
+      });
+      return;
+    }
 
     if (this.isEditMode) {
       this.productoService.putProducto(productoData).subscribe({

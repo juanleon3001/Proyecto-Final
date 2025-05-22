@@ -1,9 +1,9 @@
 <div class="container-fluid mt-4" style="width: 95%;">
   <h2>Gestión Pedidos</h2>
   <div class="d-flex justify-content-between mb-3">
-    <button type="button" class="btn btn-primary" (click)="toggleForm()">
+    <!--<button type="button" class="btn btn-primary" (click)="toggleForm()">
       Agregar Pedido
-    </button>
+    </button>-->
   </div>
 
   <table class="table table-striped table-bordered mt-3">
@@ -18,18 +18,35 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let pedido of pedidos; let i = index" style="text-align: center;">
+      <tr *ngFor="let pedido of pedidosFiltrados; let i = index" style="text-align: center;">
         <td>{{ i + 1 }}</td>
         <td hidden>{{ pedido.id }}</td>
         <td>{{ pedido.clienteNombre }}</td>
         <td>{{ pedido.total }}</td>
-        <td>{{ pedido.fechaCreacion }}</td>
-        <td>{{ pedido.idEstado }}</td>
+        <td>{{ pedido.fechaCreacion | date:'yyyy-MM-dd' }}</td>
         <td>
-          <button class="btn btn-primary btn-sm me-1" (click)="editPedido(pedido)">
+          <span [ngClass]="getEstatusPedido(pedido.idEstado).clase">
+            {{ getEstatusPedido(pedido.idEstado).texto }}
+          </span>
+        </td>
+        <td>
+          <button 
+            class="btn btn-primary btn-sm me-1"
+            [disabled]="+pedido.idEstado === 3"
+            [ngClass]="{'btn-secondary': +pedido.idEstado === 3, 'btn-primary': +pedido.idEstado !== 3}"
+            (click)="editPedido(pedido)">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button class="btn btn-danger btn-sm me-1" (click)="pedido.id ? deletePedido(pedido.id) : null">
+          <button 
+            class="btn btn-danger btn-sm me-1"
+            *ngIf="+pedido.idEstado !== 3"
+            (click)="pedido.id ? deletePedido(pedido.id) : null">
+            <i class="fa fa-trash"></i> Eliminar
+          </button>
+          <button 
+            class="btn btn-danger btn-sm me-1"
+            *ngIf="+pedido.idEstado === 3"
+            (click)="pedido.id ? cancelarPedido(pedido.id) : null">
             <i class="fa fa-trash"></i> Eliminar
           </button>
         </td>
@@ -47,10 +64,31 @@
         </div>
         <div class="modal-body" *ngIf="showForm">
           <form [formGroup]="pedidoForm" (ngSubmit)="onSubmit()">
-            <input type="hidden" readonly formControlName="id" />
+            <input type="hidden" formControlName="id" />
+            <div class="form-group">
+              <label for="id_cliente">Cliente</label>
+              <select id="id_cliente" class="form-control" formControlName="id_cliente" [disabled]="isEditMode">
+                <option [ngValue]="null" disabled>Seleccione cliente...</option>
+                <option *ngFor="let cliente of clientes" [ngValue]="cliente.id">{{ cliente.nombre }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Total</label>
+              <input class="form-control" formControlName="total" [disabled]="isEditMode" />
+            </div>
+            <div class="form-group">
+              <label>Fecha de Creación</label>
+              <input class="form-control" formControlName="fechaCreacion" [disabled]="isEditMode" />
+            </div>
             <div class="form-group">
               <label for="estatus">ESTATUS</label>
-              <input id="estatus" class="form-control" formControlName="estatus" />
+              <select id="estatus" class="form-control" formControlName="estatus">
+                <option [ngValue]="null" disabled>Seleccione estatus...</option>
+                <option [ngValue]="1">Pendiente</option>
+                <option [ngValue]="2">Enviado</option>
+                <option [ngValue]="3">Entregado</option>
+                <option [ngValue]="4">Cancelado</option>
+              </select>
             </div>
             <button type="submit" class="btn btn-success mt-3" [disabled]="pedidoForm.invalid">
               Guardar

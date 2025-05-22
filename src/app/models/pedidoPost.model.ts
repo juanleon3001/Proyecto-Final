@@ -1,5 +1,5 @@
 export interface PedidoPost {
-  id: number;
+  id?: number;
   idCliente: number;
   total: number;
   fechaCreacion: Date;
