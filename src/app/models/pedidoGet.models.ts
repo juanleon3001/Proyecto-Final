@@ -1,9 +1,10 @@
 export interface PedidoGet {
-  id_pedido: number;
-  id_cliente: number;
+  id: number;
+  clienteNombre: string;
+  clienteApellido: string;
   total: number;
-  fechaCreacion: string;
-  estatus: string;
+  fechaCreacion: Date;
+  estado: string;
   productos: Producto[];
 }
 

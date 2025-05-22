@@ -23,7 +23,7 @@
       <tr *ngFor="let cliente of clientes; let i = index" style="text-align: center;">
         <td>{{ i + 1 }}</td>
         <td>{{ cliente.nombre }}</td>
-        <td>{{ cliente.apellido }}</td>
+        <td>{{ cliente.apeliido }}</td>
         <td>{{ cliente.email }}</td>
         <td>{{ cliente.telefono }}</td>
         <td>{{ cliente.direccion }}</td>
@@ -31,7 +31,7 @@
           <button class="btn btn-primary btn-sm me-1" (click)="editCliente(cliente)">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button class="btn btn-danger btn-sm me-1" (click)="cliente.id_cliente ? deleteCliente(cliente.id_cliente) : null">
+          <button class="btn btn-danger btn-sm me-1" (click)="cliente.id ? deleteCliente(cliente.id) : null">
             <i class="fa fa-trash"></i> Eliminar
           </button>
         </td>
@@ -49,7 +49,7 @@
         </div>
         <div class="modal-body">
           <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
-            <input type="hidden" readonly formControlName="id_cliente" />
+            <input type="hidden" readonly formControlName="id" />
             <div class="form-group">
               <label for="nombre">Nombre</label>
               <input id="nombre" class="form-control" formControlName="nombre" />

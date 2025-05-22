@@ -21,7 +21,7 @@ postCliente(cliente: Cliente): Observable<Cliente>{
 }
 
 putCliente(cliente: Cliente): Observable<Cliente>{
-  return this.http.put<Cliente>(this.apiUrl + cliente.id_cliente, cliente);
+  return this.http.put<Cliente>(this.apiUrl + cliente.id, cliente);
 }
 
 deleteCliente(idCliente: number): Observable<Cliente>{

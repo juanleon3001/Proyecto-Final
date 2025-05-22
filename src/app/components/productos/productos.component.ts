@@ -24,7 +24,7 @@ export class ProductosComponent implements OnInit, AfterViewInit {
 
   constructor(private productoService: ProductoService, private formBuilder: FormBuilder) {
     this.productoForm = formBuilder.group({
-      id_producto: [null],
+      id: [null],
       nombre: ['', [Validators.required, Validators.maxLength(50)]],
       descripcion: ['', Validators.required],
       precio: ['', Validators.required],
@@ -72,7 +72,7 @@ export class ProductosComponent implements OnInit, AfterViewInit {
     if (this.isEditMode) {
       this.productoService.putProducto(productoData).subscribe({
         next: updateProducto => {
-          const index = this.productos.findIndex(t => t.id_producto === productoData.id_producto);
+          const index = this.productos.findIndex(t => t.id === productoData.id);
           if (index !== -1) this.productos[index] = updateProducto;
 
           Swal.fire({
@@ -121,7 +121,7 @@ export class ProductosComponent implements OnInit, AfterViewInit {
       if (result.isConfirmed) {
         this.productoService.deleteProducto(id).subscribe({
           next: deleted => {
-            this.productos = this.productos.filter(t => t.id_producto !== id);
+            this.productos = this.productos.filter(t => t.id !== id);
 
             Swal.fire({
               title: `Producto ${deleted.nombre} eliminado`,

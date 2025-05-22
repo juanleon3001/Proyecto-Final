@@ -21,7 +21,7 @@ postProducto(producto: Producto): Observable<Producto>{
 }
 
 putProducto(producto: Producto): Observable<Producto>{
-  return this.http.put<Producto>(this.apiUrl + producto.id_producto, producto);
+  return this.http.put<Producto>(this.apiUrl + producto.id, producto);
 }
 
 deleteProducto(idProducto: number): Observable<Producto>{

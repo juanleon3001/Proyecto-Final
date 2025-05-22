@@ -27,7 +27,7 @@ export class PedidosComponent implements OnInit, AfterViewInit {
 
   constructor(private pedidoService: PedidoService, private formBuilder: FormBuilder) {
     this.pedidoForm = formBuilder.group({
-      id_pedido: [null],
+      id: [null],
       id_cliente: ['', [Validators.required, Validators.maxLength(50)]],
       total: ['', Validators.required],
       fechaCreacion: ['', Validators.required],
@@ -75,13 +75,13 @@ export class PedidosComponent implements OnInit, AfterViewInit {
 
     const pedidoData: PedidoPost = this.pedidoForm.value;
 
-    if (this.isEditMode && pedidoData.id_pedido != null) {
+    if (this.isEditMode && pedidoData.id != null) {
       this.pedidoService.putPedido(pedidoData).subscribe({
         next: updated => {
-          const index = this.pedidos.findIndex(t => t.id_pedido === updated.id_pedido);
+          const index = this.pedidos.findIndex(t => t.id === updated.id);
           if (index !== -1) this.pedidos[index] = updated;
 
-          Swal.fire(`Avión ${updated.id_pedido} actualizado`, 'La aeronave fue actualizada correctamente.', 'success');
+          Swal.fire(`Avión ${updated.id} actualizado`, 'La aeronave fue actualizada correctamente.', 'success');
           this.pedidoForm.reset();
           this.closeModal();
         }
@@ -91,7 +91,7 @@ export class PedidosComponent implements OnInit, AfterViewInit {
         next: created => {
           this.pedidos.push(created);
 
-          Swal.fire(`Avión ${created.id_pedido} creado`, 'La aeronave fue registrada exitosamente.', 'success');
+          Swal.fire(`Avión ${created.id} creado`, 'La aeronave fue registrada exitosamente.', 'success');
           this.pedidoForm.reset();
           this.closeModal();
         }
@@ -101,7 +101,7 @@ export class PedidosComponent implements OnInit, AfterViewInit {
 
   editPedido(pedido: PedidoGet): void {
     this.selectedPedido = pedido;
-    this.textoModal = `Editando Avión: ${pedido.id_pedido}`;
+    this.textoModal = `Editando Avión: ${pedido.id}`;
     this.isEditMode = true;
     this.pedidoForm.patchValue({ ...pedido });
     this.modalInstance.show();
@@ -118,8 +118,8 @@ export class PedidosComponent implements OnInit, AfterViewInit {
       if (result.isConfirmed) {
         this.pedidoService.deletePedido(id).subscribe({
           next: deleted => {
-            this.pedidos = this.pedidos.filter(a => a.id_pedido !== id);
-            Swal.fire(`Avión ${deleted.id_pedido} eliminado`, 'La aeronave fue eliminada correctamente.', 'success');
+            this.pedidos = this.pedidos.filter(a => a.id !== id);
+            Swal.fire(`Avión ${deleted.id} eliminado`, 'La aeronave fue eliminada correctamente.', 'success');
           }
         });
       }

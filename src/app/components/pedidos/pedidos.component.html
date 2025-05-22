@@ -19,16 +19,16 @@
     <tbody>
       <tr *ngFor="let pedido of pedidos; let i = index" style="text-align: center;">
         <td>{{ i + 1 }}</td>
-        <td hidden>{{ pedido.id_pedido }}</td>
-        <td>{{ pedido.id_cliente }}</td>
+        <td hidden>{{ pedido.id }}</td>
+        <td>{{ pedido.clienteNombre }}</td>
         <td>{{ pedido.total }}</td>
         <td>{{ pedido.fechaCreacion }}</td>
-        <td>{{ pedido.estatus }}</td>
+        <td>{{ pedido.estado }}</td>
         <td>
           <button class="btn btn-primary btn-sm me-1" (click)="editPedido(pedido)">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button class="btn btn-danger btn-sm me-1" (click)="pedido.id_pedido ? deletePedido(pedido.id_pedido) : null">
+          <button class="btn btn-danger btn-sm me-1" (click)="pedido.id ? deletePedido(pedido.id) : null">
             <i class="fa fa-trash"></i> Eliminar
           </button>
         </td>

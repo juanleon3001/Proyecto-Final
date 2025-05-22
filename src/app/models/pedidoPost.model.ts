@@ -1,7 +1,8 @@
-export interface PedidoPost{
-    id_pedido: number | null,
-    id_cliente: number,
-    total: number,
-    fechaCreacion: Date,
-    estatus: number,
+export interface PedidoPost {
+  id: number;
+  idCliente: number;
+  total: number;
+  fechaCreacion: Date;
+  idEstado: number;
+  idProductos: number[];
 }

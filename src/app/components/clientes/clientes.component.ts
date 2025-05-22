@@ -24,7 +24,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   constructor(private clienteService: ClienteService, private formBuilder: FormBuilder) {
     this.clienteForm = formBuilder.group({
-      id_cliente: [null],
+      id: [null],
       nombre: ['', [Validators.required, Validators.maxLength(50)]],
       apellido: ['', Validators.required],
       email: ['', Validators.required],
@@ -77,7 +77,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     if (this.isEditMode) {
       this.clienteService.putCliente(clienteData).subscribe({
         next: updateCliente => {
-          const index = this.clientes.findIndex(t => t.id_cliente === clienteData.id_cliente);
+          const index = this.clientes.findIndex(t => t.id === clienteData.id);
           if (index !== -1) this.clientes[index] = updateCliente;
 
           Swal.fire({
@@ -127,7 +127,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
       if (result.isConfirmed) {
         this.clienteService.deleteCliente(id).subscribe({
           next: deleted => {
-            this.clientes = this.clientes.filter(t => t.id_cliente !== id);
+            this.clientes = this.clientes.filter(t => t.id !== id);
 
             Swal.fire({
               title: `Cliente ${deleted.nombre} eliminada`,

@@ -1,7 +1,7 @@
-export interface Producto{
-    id_producto: number | null,
-    nombre: string,
-    descripcion: string,
-    precio: number,
-    stock: string,
+export interface Producto {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  stock: number;
 }

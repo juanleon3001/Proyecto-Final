@@ -29,11 +29,11 @@
     <tbody>
       <tr *ngFor="let pedido of pedidosFiltrados(); let i = index" style="text-align: center;">
         <td>{{ i + 1 }}</td>
-        <td>{{ pedido.id_pedido }}</td>
-        <td>{{ pedido.id_cliente }}</td>
+        <td>{{ pedido.id }}</td>
+        <td>{{ pedido.clienteNombre }}</td>
         <td>{{ pedido.total }}</td>
         <td>{{ pedido.fechaCreacion }}</td>
-        <td>{{ pedido.estatus }}</td>
+        <td>{{ pedido.estado }}</td>
         <td>
           <ul class="list-unstyled">
             <li *ngFor="let prod of pedido.productos">{{ prod.nombre }}</li>

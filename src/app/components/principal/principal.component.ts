@@ -29,7 +29,7 @@ export class PrincipalComponent implements OnInit {
 
   pedidosFiltrados(): PedidoGet[] {
     return this.pedidos.filter(p => {
-      const coincideId = this.filtroId === '' || p.id_pedido?.toString().includes(this.filtroId);
+      const coincideId = this.filtroId === '' || p.id?.toString().includes(this.filtroId);
       const coincideProducto = this.filtroProducto === '' || p.productos?.some(prod =>
         prod.nombre?.toLowerCase().includes(this.filtroProducto.toLowerCase())
       );

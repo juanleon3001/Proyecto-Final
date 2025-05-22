@@ -29,7 +29,7 @@
           <button class="btn btn-primary btn-sm me-1" (click)="editProducto(producto)">
             <i class="fa fa-edit"></i> Editar
           </button>
-          <button class="btn btn-danger btn-sm me-1" (click)="producto.id_producto ? deleteProducto(producto.id_producto) : null">
+          <button class="btn btn-danger btn-sm me-1" (click)="producto.id ? deleteProducto(producto.id) : null">
             <i class="fa fa-trash"></i> Eliminar
           </button>
         </td>
